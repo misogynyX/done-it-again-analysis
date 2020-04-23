@@ -1,6 +1,5 @@
 # Project
 data/
-docs/_data/*.csv
 .env
 
 # Python
