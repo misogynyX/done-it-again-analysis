@@ -145,6 +145,8 @@ def analyze(tag, text, p_pos, p_neg=None):
     """텍스트가 p_pos와 일치하고 p_neg와 불일치하는지 검사"""
     if p_neg and re.search(p_neg, text, re.I):
         return False, text
+    if not re.search(p_pos, remove_quotes(text), re.I):
+        return False, text
 
     marked = re.sub(p_pos, lambda m: markup(tag, m), text, re.I)
     return text != marked, marked
@@ -160,3 +162,6 @@ def markup(tag, m):
     g = next(g for g in m.groups() if g is not None)
     return '{' + tag + '}' + g + '{/' + tag + '}'
 
+
+def remove_quotes(s):
+    return re.sub(r'".+?"', '', s)

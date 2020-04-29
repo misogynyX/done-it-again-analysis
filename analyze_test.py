@@ -33,12 +33,13 @@ def test_manual_override():
 def test_trivialize():
     cases = [
         # positives
-        ('몹쓸 짓', '여성에게 "{trivialize}몹쓸 짓{/trivialize}"을..'),
+        ('몹쓸 짓', '여성에게 {trivialize}몹쓸 짓{/trivialize}을..'),
         ('검은 손', '여고생 유혹하는 {trivialize}검은 손{/trivialize}길'),
         # negatives
         ('관련 키워드 없음', '무해하고 좋은 제목'),
         ('젠더 문제와 무관', '주식 시장 노리는 검은 손'),
         ('젠더 문제와 무관', '여성이 홧김에 방화'),
+        ('인용', '여성에게 "몹쓸 짓"이라는 표현의 문제'),
     ]
     for description, text in cases:
         _, marked = analyze.analyze_trivialize(strip_markup(text))
@@ -170,6 +171,12 @@ def test_profession():
     for description, text in cases:
         _, marked = analyze.analyze_profession(strip_markup(text))
         assert marked == text, description
+
+
+def test_remove_double_qoutes():
+    assert analyze.remove_quotes('안녕하세요') == '안녕하세요'
+    assert analyze.remove_quotes('안녕"하세요"') == '안녕'
+    assert analyze.remove_quotes('안녕"하세요" "두번째 따옴표"?') == '안녕 ?'
 
 
 def strip_markup(text):
