@@ -174,9 +174,8 @@ def test_profession():
 
 
 def test_remove_double_qoutes():
-    assert analyze.remove_quotes('안녕하세요') == '안녕하세요'
-    assert analyze.remove_quotes('안녕"하세요"') == '안녕'
-    assert analyze.remove_quotes('안녕"하세요" "두번째 따옴표"?') == '안녕 ?'
+    assert analyze.ignore_quotes('A {tag}B{/tag} C') == 'A {tag}B{/tag} C'
+    assert analyze.ignore_quotes('A "{tag}B{/tag} C"') == 'A "B C"'
 
 
 def strip_markup(text):
