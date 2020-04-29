@@ -40,10 +40,11 @@ def test_trivialize():
         ('젠더 문제와 무관', '주식 시장 노리는 검은 손'),
         ('젠더 문제와 무관', '여성이 홧김에 방화'),
         ('인용', '여성에게 "몹쓸 짓"이라는 표현의 문제'),
+        ('닫지 않은 인용', '여성에게 "몹쓸 짓'),
     ]
     for description, text in cases:
         _, marked = analyze.analyze_trivialize(strip_markup(text))
-        assert marked == text
+        assert marked == text, description
 
 
 def test_demonize():

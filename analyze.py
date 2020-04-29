@@ -162,6 +162,6 @@ def markup(tag, m):
 
 def ignore_quotes(s):
     def repl(m):
-        return '"' + re.sub(r'{.+?}', '', m.group(1)) + '"'
+        return '"' + re.sub(r'{.+?}', '', m.group(1)) +  m.group(2)
 
-    return re.sub(r'"(.+)"', repl, s)
+    return re.sub(r'"(.+?)("|$)', repl, s)
