@@ -182,7 +182,9 @@ def test_neutral():
         # negatives
         ('관련 키워드 없음', '무해하고 좋은 제목'),
         ('젠더 문제와 무관', '정규직에 대한 역차별이라며'),
+        ('젠더 문제와 무관', '국내통신사에 대한 역차별이라고 주장했다'),
         ('유해성 논란', '한 여성이 전자담배의 유해성 논란으로'),
+        ('성대결절', '한 여성이 성대결절 수술을 받았다'),
     ]
     for description, text in cases:
         _, marked = analyze.analyze_neutral(strip_markup(text))

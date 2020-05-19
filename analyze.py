@@ -147,7 +147,8 @@ def analyze_neutral(text) -> Tuple[bool, str]:
         text,
         r'(남성\s?혐오|' \
         r'\b(젠더|남녀|성|페미(니즘)?)\s?(갈등|대립|대결|논란|논쟁)|' \
-        r'역차별)'
+        r'역차별)',
+        r'성대결절'
     )
 
 
