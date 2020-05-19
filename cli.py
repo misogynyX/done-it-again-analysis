@@ -37,17 +37,11 @@ class CLI:
 
     def _tag(self, articles):
         with open(os.path.join(OUTPUT_DIR, 'articles.csv'), 'w') as f:
-            n_tagged = 0
             csvw = csv.DictWriter(f, FIELDS)
             csvw.writeheader()
-            for i, article in enumerate(articles):
-                if i >= 50000 and i % 50000 == 0:
-                    print(f'Tagged {n_tagged}/{i} articles')
-
+            for article in articles:
                 if len(article['tags']) == 0:
                     continue
-                else:
-                    n_tagged += 1
 
                 csvw.writerow({
                     **article,
@@ -138,7 +132,9 @@ class CLI:
 
     def _analyze_articles(self, articles, overrides):
         """Analyze articles"""
-        for article in articles:
+        for i, article in enumerate(articles):
+            if i >= 50000 and i % 50000 == 0:
+                print(f'Analyzed {i} articles')
             yield analyze.analyze_article(article, overrides)
 
     def _load_override_rules(self):

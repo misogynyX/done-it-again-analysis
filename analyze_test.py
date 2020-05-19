@@ -174,6 +174,21 @@ def test_profession():
         assert marked == text, description
 
 
+def test_neutral():
+    cases = [
+        # positives
+        ('남녀갈등', '{neutral}남녀갈등{/neutral}이 심해지고 있다'),
+        ('역차별', '김뫄뫄씨는 페미니즘이 {neutral}역차별{/neutral}이라며'),
+        # negatives
+        ('관련 키워드 없음', '무해하고 좋은 제목'),
+        ('젠더 문제와 무관', '정규직에 대한 역차별이라며'),
+        ('유해성 논란', '한 여성이 전자담배의 유해성 논란으로'),
+    ]
+    for description, text in cases:
+        _, marked = analyze.analyze_neutral(strip_markup(text))
+        assert marked == text, description
+
+
 def test_remove_double_qoutes():
     assert analyze.ignore_quotes('A {tag}B{/tag} C') == 'A {tag}B{/tag} C'
     assert analyze.ignore_quotes('A "{tag}B{/tag} C"') == 'A "B C"'
